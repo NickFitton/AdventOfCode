@@ -29,7 +29,7 @@ const slidingCountOfIncreases = (text: string): number => {
     const newDepth = [...pSlidingDepth, depth].slice(1) as [
       number,
       number,
-      number
+      number,
     ];
 
     if (

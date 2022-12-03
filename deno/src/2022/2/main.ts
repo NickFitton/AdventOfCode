@@ -33,7 +33,7 @@ export const getTotalScore = (text: string) => {
   return actions.reduce(
     (score, [elf, human]) =>
       score + humanActionScoreMap[human] + scoreMap[elf][human],
-    0
+    0,
   );
 };
 

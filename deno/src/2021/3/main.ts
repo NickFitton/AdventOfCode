@@ -92,7 +92,7 @@ const getCarbonRating = (text: string): number => {
 const includeOnly = (
   directions: number[][],
   column: number,
-  valueMustBe: 0 | 1
+  valueMustBe: 0 | 1,
 ): number[][] => {
   return directions.filter((row) => {
     return row[column] === valueMustBe;
