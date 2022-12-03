@@ -25,15 +25,10 @@ const cmd = new Command<Arguments>("Your favorite AoC runner")
   .required(number, "year")
   .required(number, "day")
   .required(number, "part")
-  .optional(choice("SOURCE", ["local", "remote"]), "source", {
-    flags: ["s", "source"],
-    description:
-      "Where to get the input data from. Local attempts to load a `input.txt` in the problems folder, remote attempts to fetch from AoC",
-  })
   .optional(string, "token", {
     flags: ["t", "token"],
     description:
-      'An AoC session token, this is required if "source" is "remote".',
+      "An AoC session token, setting this will get problem statement from remote instead of local.",
   })
   .optional(boolean, "submit", {
     flags: ["submit"],
@@ -45,12 +40,7 @@ const { year, day, part, source, token, submit } = cmd.run();
 const solution = await import(`./${year}/${day}/main.ts`);
 
 let text: string | undefined;
-if (source === "remote") {
-  if (!token) {
-    throw new Error(
-      'Source was set to "remote" but no token was provided, pass a token using -t or --token'
-    );
-  }
+if (token) {
   text = await getRemoteProblemText(year, day, token);
 } else {
   text = await getLocalProblemText(year, day);
