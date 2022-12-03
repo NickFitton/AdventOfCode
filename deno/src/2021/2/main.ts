@@ -12,7 +12,7 @@ const textToDirections = (text: string) =>
     ];
   });
 
-export const navigateAbyss = (text: string): number => {
+const navigateAbyss = (text: string): number => {
   const directions = textToDirections(text);
   const position = [0, 0];
 
@@ -32,7 +32,7 @@ export const navigateAbyss = (text: string): number => {
   return position[0] * position[1];
 };
 
-export const navigateAbyssWithAim = (text: string): number => {
+const navigateAbyssWithAim = (text: string): number => {
   const directions = textToDirections(text);
   const position = [0, 0];
   let aim = 0;
@@ -50,7 +50,9 @@ export const navigateAbyssWithAim = (text: string): number => {
         position[1] += aim * distance;
         break;
     }
-    console.log(position, aim);
   });
   return position[0] * position[1];
 };
+
+export const part1 = navigateAbyss;
+export const part2 = navigateAbyssWithAim;

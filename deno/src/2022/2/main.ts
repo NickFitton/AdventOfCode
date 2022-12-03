@@ -1,6 +1,8 @@
-export const getText = () => Deno.readTextFile("./input.txt");
-
 /*
+  A & X represent rock
+  B & Y represent paper
+  C & Z represent scissors
+
   Lose conditions = AZ BX CY
   Win conditions = AY BZ CX
   Draw conditions = AX BY CZ
@@ -64,3 +66,6 @@ export const getAwkwardTotalScore = (text: string) => {
     );
   }, 0);
 };
+
+export const part1 = getTotalScore;
+export const part2 = getAwkwardTotalScore;

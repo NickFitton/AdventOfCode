@@ -98,3 +98,6 @@ const includeOnly = (
     return row[column] === valueMustBe;
   });
 };
+
+export const part1 = generatePowerConsumption;
+export const part2 = getLifeSupportRating;
