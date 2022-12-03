@@ -1,9 +1,7 @@
 import {
   Command,
   number,
-  choice,
   string,
-  boolean,
 } from "https://deno.land/x/clay@v0.2.5/mod.ts";
 import {
   getLocalProblemText,
@@ -49,13 +47,13 @@ if (token) {
 const methodName = `part${part}`;
 if (solution[methodName] === undefined) {
   throw new Error(
-    `No solution has been written for ${year} ${day} ${methodName}`
+    `No solution has been written for ${year} ${day} ${methodName}`,
   );
 }
 const output = solution[`part${part}`](text);
 
 console.log(
-  `Your solution for ${year}/${day} part ${part} is:\n|\n|\t${output}`
+  `Your solution for ${year}/${day} part ${part} is:\n|\n|\t${output}`,
 );
 
 if (submit && !(source === "local")) {

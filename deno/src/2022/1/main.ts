@@ -7,9 +7,7 @@ const getElfTotals = (input: string): number[] =>
   );
 
 const getLargestLoad = (input: string): number => {
-  return getElfTotals(input).reduce((elfA, elfB) =>
-    elfA > elfB ? elfA : elfB
-  );
+  return getElfTotals(input).reduce((elfA, elfB) => elfA > elfB ? elfA : elfB);
 };
 
 const getTopThreeSum = (input: string): number => {

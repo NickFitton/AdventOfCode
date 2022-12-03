@@ -4,11 +4,11 @@ const textToDirections = (text: string) =>
   text.split("\n").map((line) => {
     const [direction, distance] = line.split(" ") as [
       "forward" | "down" | "up",
-      string
+      string,
     ];
     return [direction, parseInt(distance)] as [
       "forward" | "down" | "up",
-      number
+      number,
     ];
   });
 
