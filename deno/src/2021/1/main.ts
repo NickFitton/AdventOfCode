@@ -5,7 +5,7 @@ const textToDepths = (text: string) =>
 
 const sum = (array: number[]): number => array.reduce((a, b) => a + b);
 
-export const countOfIncreases = (text: string): number => {
+const countOfIncreases = (text: string): number => {
   const depths = textToDepths(text);
   let increments = 0;
   let pDepth: number | undefined = undefined;
@@ -19,7 +19,7 @@ export const countOfIncreases = (text: string): number => {
   return increments;
 };
 
-export const slidingCountOfIncreases = (text: string): number => {
+const slidingCountOfIncreases = (text: string): number => {
   const depths = textToDepths(text);
   let increments = 0;
 
@@ -44,3 +44,6 @@ export const slidingCountOfIncreases = (text: string): number => {
 
   return increments;
 };
+
+export const part1 = countOfIncreases;
+export const part2 = slidingCountOfIncreases;

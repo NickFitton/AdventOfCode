@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "run": "deno run --allow-net=adventofcode.com,deno.land --allow-read src/main.ts"
+  }
+}

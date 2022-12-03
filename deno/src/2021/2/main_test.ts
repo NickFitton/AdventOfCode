@@ -1,0 +1,18 @@
+import { assertEquals } from "https://deno.land/std@0.166.0/testing/asserts.ts";
+import { getLocalProblemText } from "../../utils/getProblemText.ts";
+
+import { part1, part2 } from "./main.ts";
+
+Deno.test("Dive! - Part 1", async () => {
+  const text = await getLocalProblemText(2021, 2);
+  const totalScore = part1(text);
+
+  assertEquals(totalScore, 150);
+});
+
+Deno.test("Dive! - Part 2", async () => {
+  const text = await getLocalProblemText(2021, 2);
+  const topThreeSum = part2(text);
+
+  assertEquals(topThreeSum, 900);
+});

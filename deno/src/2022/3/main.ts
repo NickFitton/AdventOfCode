@@ -1,7 +1,5 @@
 import "https://deno.land/x/arrays@v1.0.21/mod.ts";
 
-export const getText = () => Deno.readTextFile("./input.txt");
-
 const textToCompartments = (text: string): [string, string][] =>
   text
     .split("\n")
@@ -19,7 +17,14 @@ const itemToPriority = (text: string): number => {
   }
 };
 
-export const priorityItemSums = (text: string): number => {
+const textToGroups = (text: string): [string[], string[], string[]][] => {
+  return text
+    .split("\n")
+    .map((line) => line.split(""))
+    .chunk(3) as [string[], string[], string[]][];
+};
+
+const priorityItemSums = (text: string): number => {
   return textToCompartments(text).reduce((acc, compartment) => {
     const repeat: string | undefined = compartment[0]
       .split("")
@@ -31,14 +36,7 @@ export const priorityItemSums = (text: string): number => {
   }, 0);
 };
 
-const textToGroups = (text: string): [string[], string[], string[]][] => {
-  return text
-    .split("\n")
-    .map((line) => line.split(""))
-    .chunk(3) as [string[], string[], string[]][];
-};
-
-export const stickerAttachmentEfforts = (text: string): number => {
+const stickerAttachmentEfforts = (text: string): number => {
   return textToGroups(text)
     .map(([a, b, c]) =>
       a.find((character) => b.includes(character) && c.includes(character))
@@ -46,3 +44,6 @@ export const stickerAttachmentEfforts = (text: string): number => {
     .map((item) => (item ? itemToPriority(item) : 0))
     .reduce((a, b) => a + b);
 };
+
+export const part1 = priorityItemSums;
+export const part2 = stickerAttachmentEfforts;
