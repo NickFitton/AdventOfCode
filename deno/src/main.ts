@@ -30,8 +30,8 @@ const cmd = new Command<Arguments>("Your favorite AoC runner")
     description:
       "An AoC session token, setting this will get problem statement from remote instead of local.",
   })
-  .optional(boolean, "submit", {
-    flags: ["submit"],
+  .flag("submit", {
+    aliases: ["s"],
     description: "If passed, I'll submit the result to AoC",
   });
 
@@ -60,4 +60,5 @@ console.log(
 
 if (submit && !(source === "local")) {
   // TODO: Send solution up to AoC
+  throw new Error("Submission not implemented");
 }
