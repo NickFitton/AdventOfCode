@@ -22,18 +22,9 @@ interface Arguments {
 // Deno.writeTextFile("./hello.txt", "this is where I am");
 
 const cmd = new Command<Arguments>("Your favorite AoC runner")
-  .required(number, "year", {
-    flags: ["y", "year"],
-    description: "The year of the AoC problem",
-  })
-  .required(number, "day", {
-    flags: ["d", "day"],
-    description: "The day of the AoC problem",
-  })
-  .required(number, "part", {
-    flags: ["p", "part"],
-    description: "The part of the days AoC problem",
-  })
+  .required(number, "year")
+  .required(number, "day")
+  .required(number, "part")
   .optional(choice("SOURCE", ["local", "remote"]), "source", {
     flags: ["s", "source"],
     description:
@@ -73,8 +64,10 @@ if (solution[methodName] === undefined) {
 }
 const output = solution[`part${part}`](text);
 
-console.log(`Your solution for ${year}/${day} part ${part} is:\n|\t${output}`);
+console.log(
+  `Your solution for ${year}/${day} part ${part} is:\n|\n|\t${output}`
+);
 
-if (submit) {
+if (submit && !(source === "local")) {
   // TODO: Send solution up to AoC
 }
