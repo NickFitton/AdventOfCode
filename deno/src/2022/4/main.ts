@@ -43,18 +43,14 @@ const fullyContains = (text: string): number =>
   );
 
 const countOverlaps = (text: string): number =>
-  textToElfAssignments(text).reduce(
-    (agg, assignment) => (hasOverlap(assignment) ? agg + 1 : agg),
-    0
-  );
+  textToElfAssignments(text).reduce((agg, assignment) => {
+    const [elf1, elf2] = assignment;
+    const elf1Items = getItems(elf1[0], elf1[1]);
+    const elf2Items = getItems(elf2[0], elf2[1]);
+    const unionSet = new Set([...elf1Items, ...elf2Items]);
 
-const hasOverlap = (pair: AssignmentPair): boolean => {
-  const [elf1, elf2] = pair;
-  const elf1Items = getItems(...elf1);
-  const elf2Items = getItems(...elf2);
-
-  return elf1Items.some((item) => elf2Items.includes(item));
-};
+    return unionSet.size < elf1Items.length + elf2Items.length ? agg + 1 : agg;
+  }, 0);
 
 export const part1 = fullyContains;
 export const part2 = countOverlaps;
