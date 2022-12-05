@@ -1,5 +1,3 @@
-import "https://deno.land/x/arrays@v1.0.21/mod.ts";
-
 export type AssignmentPair = [[number, number], [number, number]];
 
 /**

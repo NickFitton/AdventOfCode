@@ -55,14 +55,14 @@ Deno.test("isSubset", () => {
   assertFalse(isSubset(pair5));
 });
 
-Deno.test("Rucksack Reorganization - Part 1", async () => {
+Deno.test("Camp Cleanup - Part 1", async () => {
   const text = await getLocalProblemText(2022, 4);
   const part1Solution = part1(text);
 
   assertEquals(part1Solution, 2);
 });
 
-Deno.test("Rucksack Reorganization - Part 2", async () => {
+Deno.test("Camp Cleanup - Part 2", async () => {
   const text = await getLocalProblemText(2022, 4);
   const part2Solution = part2(text);
 
