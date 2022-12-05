@@ -1,8 +1,10 @@
 import "https://deno.land/x/arrays@v1.0.21/mod.ts";
 
-const buildContainers = (lines: string[]): Record<number, string[]> => {
+type ContainerMap = Record<number, string[]>;
+
+const buildContainers = (lines: string[]): ContainerMap => {
   let nextLine = lines.shift();
-  const positions: Record<number, string[]> = {};
+  const positions: ContainerMap = {};
 
   while (nextLine !== undefined && nextLine !== "") {
     (nextLine.split("").chunk(4) as string[][])
@@ -24,48 +26,11 @@ const buildContainers = (lines: string[]): Record<number, string[]> => {
   return positions;
 };
 
-export const textToPositionsAndInstructions = (text: string): string => {
+const moveContainers = (text: string, craneModel: "9000" | "9001") => {
   const lines = text.split("\n");
 
   const positions = buildContainers(lines);
 
-  let nextLine = lines.shift();
-  let lineCount = 0;
-  while (nextLine) {
-    lineCount++;
-    const actions = nextLine.match(/move (\d+) from (\d+) to (\d+)/);
-    if (!actions) {
-      throw new Error(
-        `Failed to build actions from line ${nextLine} on action ${lineCount}`
-      );
-    }
-    const [_str, iterationsStr, fromStr, toStr] = actions;
-    const iterations = parseInt(iterationsStr);
-    const from = parseInt(fromStr);
-    const to = parseInt(toStr);
-
-    for (let actionCount = 0; actionCount < iterations; actionCount++) {
-      const movingContainer = positions[from].pop();
-      if (!movingContainer) {
-        throw new Error("Tried to pick up a container in an empty space");
-      }
-      positions[to].push(movingContainer);
-    }
-
-    nextLine = lines.shift();
-  }
-
-  return Object.values(positions)
-    .map((column) => column.pop())
-    .join("");
-};
-
-export const part1 = textToPositionsAndInstructions;
-
-export const groupStackContainers = (text: string): string => {
-  const lines = text.split("\n");
-
-  const positions = buildContainers(lines);
   let nextLine = lines.shift();
   let lineCount = 0;
   while (nextLine) {
@@ -89,7 +54,9 @@ export const groupStackContainers = (text: string): string => {
       }
       movingContainers.push(movingContainer);
     }
-    positions[to].push(...movingContainers.reverse());
+    positions[to].push(
+      ...(craneModel === "9000" ? movingContainers : movingContainers.reverse())
+    );
 
     nextLine = lines.shift();
   }
@@ -97,6 +64,16 @@ export const groupStackContainers = (text: string): string => {
   return Object.values(positions)
     .map((column) => column.pop())
     .join("");
+};
+
+export const textToPositionsAndInstructions = (text: string): string => {
+  return moveContainers(text, "9000");
+};
+
+export const part1 = textToPositionsAndInstructions;
+
+export const groupStackContainers = (text: string): string => {
+  return moveContainers(text, "9001");
 };
 
 export const part2 = groupStackContainers;
