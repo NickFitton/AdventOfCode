@@ -1,5 +1,3 @@
-import "https://deno.land/x/arrays@v1.0.21/mod.ts";
-
 /**
  * Finds the first place in a line of text where a chunk of the given size is unique.
  * Returns -1 if no chunk is found.
