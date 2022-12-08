@@ -1,23 +1,28 @@
-const countVisibleTrees = (text: string): number => {
-  const grid: number[][] = text
+type GridCheckArgs = {
+  x: number;
+  y: number;
+  grid: number[][];
+};
+
+function textToGrid(text: string): number[][] {
+  return text
     .split("\n")
     .map((line) => line.split("").map((height) => parseInt(height)));
+}
+
+const countVisibleTrees = (text: string): number => {
+  const grid = textToGrid(text);
 
   let visibleTrees = 0;
 
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid.length; x++) {
-      const args: [number, number, number, number[][]] = [
-        grid[y][x],
-        x,
-        y,
-        grid,
-      ];
+      const args = { x, y, grid };
       if (
-        visibleFromLeft(...args) ||
-        visibleFromRight(...args) ||
-        visibleFromTop(...args) ||
-        visibleFromBottom(...args)
+        visibleFromLeft(args) ||
+        visibleFromRight(args) ||
+        visibleFromTop(args) ||
+        visibleFromBottom(args)
       ) {
         visibleTrees++;
       }
@@ -27,12 +32,8 @@ const countVisibleTrees = (text: string): number => {
   return visibleTrees;
 };
 
-const visibleFromLeft = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-) => {
+const visibleFromLeft = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   for (let dX = x - 1; dX >= 0; dX--) {
     if (grid[y][dX] >= height) {
       return false;
@@ -40,12 +41,8 @@ const visibleFromLeft = (
   }
   return true;
 };
-const visibleFromRight = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-) => {
+const visibleFromRight = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   for (let dX = x + 1; dX < grid.length; dX++) {
     if (grid[y][dX] >= height) {
       return false;
@@ -53,12 +50,8 @@ const visibleFromRight = (
   }
   return true;
 };
-const visibleFromTop = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-) => {
+const visibleFromTop = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   for (let dY = y - 1; dY >= 0; dY--) {
     if (grid[dY][x] >= height) {
       return false;
@@ -66,12 +59,8 @@ const visibleFromTop = (
   }
   return true;
 };
-const visibleFromBottom = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-) => {
+const visibleFromBottom = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   for (let dY = y + 1; dY < grid[0].length; dY++) {
     if (grid[dY][x] >= height) {
       return false;
@@ -82,12 +71,8 @@ const visibleFromBottom = (
 
 export const part1 = countVisibleTrees;
 
-const scoreFromLeft = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-): number => {
+const scoreFromLeft = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   let count = 0;
   for (let dX = x - 1; dX >= 0; dX--) {
     count++;
@@ -97,12 +82,8 @@ const scoreFromLeft = (
   }
   return count;
 };
-const scoreFromRight = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-): number => {
+const scoreFromRight = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   let count = 0;
   for (let dX = x + 1; dX < grid.length; dX++) {
     count++;
@@ -112,12 +93,8 @@ const scoreFromRight = (
   }
   return count;
 };
-const scoreFromTop = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-): number => {
+const scoreFromTop = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   let count = 0;
   for (let dY = y - 1; dY >= 0; dY--) {
     count++;
@@ -127,12 +104,8 @@ const scoreFromTop = (
   }
   return count;
 };
-const scoreFromBottom = (
-  height: number,
-  x: number,
-  y: number,
-  grid: number[][]
-): number => {
+const scoreFromBottom = ({ x, y, grid }: GridCheckArgs) => {
+  const height = grid[y][x];
   let count = 0;
   for (let dY = y + 1; dY < grid[0].length; dY++) {
     count++;
@@ -152,17 +125,12 @@ const getHighestScenicScore = (text: string): number => {
 
   for (let y = 1; y < grid.length - 1; y++) {
     for (let x = 1; x < grid.length - 1; x++) {
-      const args: [number, number, number, number[][]] = [
-        grid[y][x],
-        x,
-        y,
-        grid,
-      ];
-      const Left = scoreFromLeft(...args);
-      const Right = scoreFromRight(...args);
-      const Top = scoreFromTop(...args);
-      const Bottom = scoreFromBottom(...args);
-      const scenicScore = Left * Right * Top * Bottom;
+      const args = { x, y, grid };
+      const left = scoreFromLeft(args);
+      const right = scoreFromRight(args);
+      const top = scoreFromTop(args);
+      const bottom = scoreFromBottom(args);
+      const scenicScore = left * right * top * bottom;
       topScenicScore = Math.max(topScenicScore, scenicScore);
     }
   }
