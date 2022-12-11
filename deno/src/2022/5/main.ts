@@ -38,7 +38,7 @@ const moveContainers = (text: string, craneModel: "9000" | "9001") => {
     const actions = nextLine.match(/move (\d+) from (\d+) to (\d+)/);
     if (!actions) {
       throw new Error(
-        `Failed to build actions from line ${nextLine} on action ${lineCount}`
+        `Failed to build actions from line ${nextLine} on action ${lineCount}`,
       );
     }
     const [_str, iterationsStr, fromStr, toStr] = actions;
@@ -55,7 +55,9 @@ const moveContainers = (text: string, craneModel: "9000" | "9001") => {
       movingContainers.push(movingContainer);
     }
     positions[to].push(
-      ...(craneModel === "9000" ? movingContainers : movingContainers.reverse())
+      ...(craneModel === "9000"
+        ? movingContainers
+        : movingContainers.reverse()),
     );
 
     nextLine = lines.shift();

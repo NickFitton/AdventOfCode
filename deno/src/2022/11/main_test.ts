@@ -3,12 +3,12 @@ import { getLocalProblemText } from "../../utils/getProblemText.ts";
 
 import { part1, part2 } from "./main.ts";
 
-// Deno.test("Monkey in the Middle - Part 1", async () => {
-//   const text = await getLocalProblemText(2022, 11);
-//   const part1Solution = part1(text);
+Deno.test("Monkey in the Middle - Part 1", async () => {
+  const text = await getLocalProblemText(2022, 11);
+  const part1Solution = part1(text);
 
-//   assertEquals(part1Solution, 10605);
-// });
+  assertEquals(part1Solution, 10605);
+});
 
 Deno.test("Monkey in the Middle - Part 2", async () => {
   const text = await getLocalProblemText(2022, 11);

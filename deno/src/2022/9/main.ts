@@ -28,7 +28,7 @@ const countTailPositions = (text: string): number => {
     for (let step = 0; step < distance; step++) {
       ({ x: headX, y: headY } = moveInDirection(
         { x: headX, y: headY },
-        direction
+        direction,
       ));
 
       if (headX - tailX > 1) {

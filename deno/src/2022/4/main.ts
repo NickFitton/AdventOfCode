@@ -37,7 +37,7 @@ function getItems(startAt: number, endAt: number) {
 const fullyContains = (text: string): number =>
   textToElfAssignments(text).reduce(
     (agg, assignment) => (isSubset(assignment) ? agg + 1 : agg),
-    0
+    0,
   );
 
 const countOverlaps = (text: string): number =>

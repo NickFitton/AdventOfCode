@@ -22,7 +22,7 @@ class Monkey {
     public inspectType: "multi" | "incre" | "square",
     public factor: number,
     public trueMonkey: number,
-    public falseMonkey: number
+    public falseMonkey: number,
   ) {}
 
   public inspectFirstItem(): void {
@@ -75,7 +75,7 @@ const regexGroupToMonkey = (group: MonkeyRegexGroup): Monkey => {
     inspectType,
     parseInt(group.divider),
     parseInt(group.trueMonkey),
-    parseInt(group.falseMonkey)
+    parseInt(group.falseMonkey),
   );
 };
 

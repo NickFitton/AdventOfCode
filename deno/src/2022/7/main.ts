@@ -50,7 +50,7 @@ const composeDirectoriesFromText = (text: string): Directory => {
  */
 const parseDirUntilLeave = (
   logs: string[],
-  currentDir: Directory
+  currentDir: Directory,
 ): Directory => {
   let currentLog = logs.shift();
   while (logs.length > 0 || currentLog !== undefined) {
@@ -82,7 +82,7 @@ const parseDirUntilLeave = (
 const getDirSizeAndRecordChildren = (
   directory: Directory,
   currentPath: string,
-  sizeMap: Record<string, number>
+  sizeMap: Record<string, number>,
 ): number => {
   let size = 0;
 
@@ -116,7 +116,7 @@ const sumOfSmallerDirectories = (text: string): number => {
     .filter(([_name, size]) => size <= MAX_DIR_SIZE)
     .reduce(
       (agg, [name, size]) => ({ ...agg, [name]: size }),
-      {} as Record<string, number>
+      {} as Record<string, number>,
     );
   return Object.values(undersizedDirs).reduce((a, b) => a + b);
 };

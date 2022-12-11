@@ -50,7 +50,7 @@ const firstProblem = (text: string): number => {
 
 const spriteInDisplay = (
   spritePosition: number,
-  crtPointer: number
+  crtPointer: number,
 ): boolean => {
   return (
     spritePosition === crtPointer ||
@@ -81,9 +81,9 @@ const secondProblem = (text: string): string[] => {
     }
 
     crtDisplay[crtDisplay.length - 1] += spriteInDisplay(
-      spritePosition,
-      cycle % 40
-    )
+        spritePosition,
+        cycle % 40,
+      )
       ? "█"
       : " ";
 
