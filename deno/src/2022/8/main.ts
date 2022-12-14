@@ -1,33 +1,31 @@
+import { deepMap, toGrid } from "../../utils/inputParser.ts";
+import { forInRange } from "../../utils/iterator.ts";
+
 type GridCheckArgs = {
   x: number;
   y: number;
   grid: number[][];
 };
 
-function textToGrid(text: string): number[][] {
-  return text
-    .split("\n")
-    .map((line) => line.split("").map((height) => parseInt(height)));
-}
+const textToGrid = (text: string): number[][] =>
+  deepMap(toGrid(text), (height) => parseInt(height));
 
 const countVisibleTrees = (text: string): number => {
   const grid = textToGrid(text);
 
   let visibleTrees = 0;
 
-  for (let y = 0; y < grid.length; y++) {
-    for (let x = 0; x < grid.length; x++) {
-      const args = { x, y, grid };
-      if (
-        visibleFromLeft(args) ||
-        visibleFromRight(args) ||
-        visibleFromTop(args) ||
-        visibleFromBottom(args)
-      ) {
-        visibleTrees++;
-      }
+  forInRange([0, grid.length], [0, grid.length], (x, y) => {
+    const args = { x, y, grid };
+    if (
+      visibleFromLeft(args) ||
+      visibleFromRight(args) ||
+      visibleFromTop(args) ||
+      visibleFromBottom(args)
+    ) {
+      visibleTrees++;
     }
-  }
+  });
 
   return visibleTrees;
 };

@@ -1,3 +1,6 @@
+import { sum } from "../../utils/reducer.ts";
+import { decreasing } from "../../utils/sort.ts";
+
 const getElfTotals = (input: string): number[] =>
   input.split("\n\n").map((calorieGroup) =>
     calorieGroup
@@ -7,13 +10,15 @@ const getElfTotals = (input: string): number[] =>
   );
 
 const getLargestLoad = (input: string): number => {
-  return getElfTotals(input).reduce((elfA, elfB) => elfA > elfB ? elfA : elfB);
+  return getElfTotals(input).reduce((elfA, elfB) =>
+    elfA > elfB ? elfA : elfB
+  );
 };
 
 const getTopThreeSum = (input: string): number => {
   const elves = getElfTotals(input);
-  elves.sort((elfA, elfB) => elfB - elfA);
-  return elves.slice(0, 3).reduce((sum, elf) => sum + elf, 0);
+  elves.sort(decreasing);
+  return elves.slice(0, 3).reduce(sum);
 };
 
 export const part1 = getLargestLoad;

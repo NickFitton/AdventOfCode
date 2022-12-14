@@ -1,4 +1,5 @@
 import "https://deno.land/x/arrays@v1.0.21/mod.ts";
+import { sum } from "../../utils/reducer.ts";
 
 const stringNotEmpty = (input: string) => input.length > 0;
 const parseNumber = (numberStr: string): number => parseInt(numberStr);
@@ -47,7 +48,7 @@ const buildScore = (board: number[][], bingoNumber: number): number =>
   board
     .flatMap((item) => item)
     .filter((item) => item !== -1)
-    .reduce((a, b) => a + b) * bingoNumber;
+    .reduce(sum) * bingoNumber;
 
 const winningBoardScore = (text: string): number => {
   const lines = text.split("\n");

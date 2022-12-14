@@ -1,3 +1,5 @@
+import { decreasing } from "../../utils/sort.ts";
+
 const MONKEY_REGEX =
   /Monkey (?<id>\d+):\n {2}Starting items: (?<first>\d+)(?<rest>(, \d+)*)\n {2}Operation: new = (?<operation>[a-z 0-9*+]+)\n {2}Test: divisible by (?<divider>\d+)\n {4}If true: throw to monkey (?<trueMonkey>\d+)\n {4}If false: throw to monkey (?<falseMonkey>\d+)/;
 const WORRY_MULTIPLIER = /old \* (?<by>\d+)/;
@@ -22,7 +24,7 @@ class Monkey {
     public inspectType: "multi" | "incre" | "square",
     public factor: number,
     public trueMonkey: number,
-    public falseMonkey: number,
+    public falseMonkey: number
   ) {}
 
   public inspectFirstItem(): void {
@@ -75,7 +77,7 @@ const regexGroupToMonkey = (group: MonkeyRegexGroup): Monkey => {
     inspectType,
     parseInt(group.divider),
     parseInt(group.trueMonkey),
-    parseInt(group.falseMonkey),
+    parseInt(group.falseMonkey)
   );
 };
 
@@ -113,7 +115,7 @@ export const part1 = (text: string): number => {
   }
 
   const inspections = monkeys.map((monkey) => monkey.inspections);
-  inspections.sort((a, b) => b - a);
+  inspections.sort(decreasing);
 
   return inspections.slice(0, 2).reduce((a, b) => a * b);
 };
@@ -133,7 +135,7 @@ export const part2 = (text: string): number => {
   }
 
   const inspections = monkeys.map((monkey) => monkey.inspections);
-  inspections.sort((a, b) => b - a);
+  inspections.sort(decreasing);
 
   return inspections.slice(0, 2).reduce((a, b) => a * b);
 };

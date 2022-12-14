@@ -1,7 +1,9 @@
+import { deepMap, toGrid, toLines } from "../../utils/inputParser.ts";
+
 export const getText = () => Deno.readTextFile("./input.txt");
 
 const textToArray = (text: string): number[][] =>
-  text.split("\n").map((line) => line.split("").map((bit) => parseInt(bit)));
+  deepMap(toGrid(text), (bit) => parseInt(bit));
 
 export const generatePowerConsumption = (text: string): number => {
   const directions = textToArray(text);
@@ -92,7 +94,7 @@ const getCarbonRating = (text: string): number => {
 const includeOnly = (
   directions: number[][],
   column: number,
-  valueMustBe: 0 | 1,
+  valueMustBe: 0 | 1
 ): number[][] => {
   return directions.filter((row) => {
     return row[column] === valueMustBe;

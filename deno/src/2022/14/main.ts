@@ -33,7 +33,7 @@ const mapToArray = (map: YXMap): { grid: number[][]; origin: Coords } => {
 };
 
 const mapToFlooredArray = (
-  map: YXMap
+  map: YXMap,
 ): { grid: number[][]; origin: Coords } => {
   const yKeys = Object.keys(map).map((key) => parseInt(key));
   const minY = Math.min(...yKeys, SAND_SOURCE.y);
@@ -71,7 +71,7 @@ const mapToFlooredArray = (
 
 const lineDirection = (
   pointA: Coords,
-  pointB: Coords
+  pointB: Coords,
 ): "horizontal" | "vertical" | "diagonal" | null => {
   const diffX = Math.abs(pointA.x - pointB.x);
   if (diffX === 0) {
@@ -101,7 +101,7 @@ const getCoordsFromText = (text: string): Coords[][] => {
 const plotHorizontal = (
   pointFrom: Coords,
   pointTo: Coords,
-  map: YXMap
+  map: YXMap,
 ): void => {
   const y = pointFrom.y;
   if (!map[y]) {
@@ -158,7 +158,7 @@ const accessPoint = (grid: number[][], y: number, x: number): number => {
 const dropGrain = (
   grid: number[][],
   gridOrigin: Coords,
-  from: Coords
+  from: Coords,
 ): Coords => {
   const pointer = { x: from.x - gridOrigin.x, y: from.y - gridOrigin.y };
   let rested = false;

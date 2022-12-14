@@ -1,9 +1,11 @@
+import { sum as libSum } from "../../utils/reducer.ts";
+
 export const getText = () => Deno.readTextFile("./input.txt");
 
 const textToDepths = (text: string) =>
   text.split("\n").map((line) => parseInt(line));
 
-const sum = (array: number[]): number => array.reduce((a, b) => a + b);
+const sum = (array: number[]): number => array.reduce(libSum);
 
 const countOfIncreases = (text: string): number => {
   const depths = textToDepths(text);
@@ -29,7 +31,7 @@ const slidingCountOfIncreases = (text: string): number => {
     const newDepth = [...pSlidingDepth, depth].slice(1) as [
       number,
       number,
-      number,
+      number
     ];
 
     if (

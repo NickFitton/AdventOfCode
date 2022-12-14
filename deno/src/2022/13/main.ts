@@ -1,3 +1,5 @@
+import { sum } from "../../utils/reducer.ts";
+
 type NestedList = (number | NestedList)[];
 
 const compare = (left: NestedList, right: NestedList): boolean | null => {
@@ -70,7 +72,7 @@ export const part1 = (text: string): number => {
 
   console.log(goodPairs);
 
-  return goodPairs.reduce((a, b) => a + b);
+  return goodPairs.reduce(sum);
 };
 
 const clone = <T>(array: T[]): T[] => JSON.parse(JSON.stringify(array));

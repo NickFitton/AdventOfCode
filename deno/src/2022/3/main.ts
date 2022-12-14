@@ -1,4 +1,5 @@
 import "https://deno.land/x/arrays@v1.0.21/mod.ts";
+import { sum } from "../../utils/reducer.ts";
 
 const textToCompartments = (text: string): [string, string][] =>
   text
@@ -42,7 +43,7 @@ const stickerAttachmentEfforts = (text: string): number => {
       a.find((character) => b.includes(character) && c.includes(character))
     )
     .map((item) => (item ? itemToPriority(item) : 0))
-    .reduce((a, b) => a + b);
+    .reduce(sum);
 };
 
 export const part1 = priorityItemSums;

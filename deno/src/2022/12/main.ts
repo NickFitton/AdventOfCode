@@ -1,27 +1,24 @@
+import { Position } from "../../utils/types.ts";
+
 const HEIGHT_APLHABET = "SabcdefghijklmnopqrstuvwxyzE";
 
-const MOD_MAP = [
+const MOD_MAP: Position[] = [
   { x: -1, y: 0 },
   { x: 1, y: 0 },
   { x: 0, y: -1 },
   { x: 0, y: 1 },
 ];
 
-type Position = {
-  x: number;
-  y: number;
-};
-
 const getUniques = (positions: Position[]): Position[] =>
   Object.values(
     positions.reduce(
       (acc, next) => ({ ...acc, [`${next.x},${next.y}`]: next }),
-      {} as Record<string, Position>
-    )
+      {} as Record<string, Position>,
+    ),
   );
 
 const parseInput = (
-  text: string
+  text: string,
 ): {
   start: Position;
   end: Position;
@@ -57,7 +54,7 @@ const parseInput = (
 const getPossibleMoves = (
   pos: Position,
   heightMap: number[][],
-  stepMap: boolean[][]
+  stepMap: boolean[][],
 ): Position[] => {
   const currentHeight: number = heightMap[pos.y][pos.x];
   return MOD_MAP.filter((modifier) => {
@@ -76,7 +73,7 @@ const getPossibleMoves = (
 const getPossibleReverseMoves = (
   pos: Position,
   heightMap: number[][],
-  stepMap: boolean[][]
+  stepMap: boolean[][],
 ): Position[] => {
   const currentHeight: number = heightMap[pos.y][pos.x];
   return MOD_MAP.filter((modifier) => {
@@ -97,7 +94,7 @@ const stepTo = (stepMap: boolean[][], ...positions: Position[]): boolean[][] =>
     row.map(
       (value, x) =>
         value ||
-        !!positions.find((position) => position.x === x && position.y === y)
+        !!positions.find((position) => position.x === x && position.y === y),
     )
   );
 
@@ -119,21 +116,21 @@ const getNextMoves = (
   goal: Position,
   heightMap: number[][],
   stepMap: boolean[][],
-  iteration: number
+  iteration: number,
 ): number => {
   let positionSet = currentPositions.flatMap((postion) =>
     getPossibleMoves(postion, heightMap, stepMap)
   );
-  printStepMap(stepMap, heightMap);
+  // printStepMap(stepMap, heightMap);
 
   positionSet = getUniques(positionSet);
   if (positionSet.length === 0) {
-    printStepMap(stepMap, heightMap);
+    // printStepMap(stepMap, heightMap);
     return -1;
   }
   if (
     positionSet.find(
-      (position) => `${position.x},${position.y}` === `${goal.x},${goal.y}`
+      (position) => `${position.x},${position.y}` === `${goal.x},${goal.y}`,
     )
   ) {
     return iteration + 1;
@@ -163,16 +160,16 @@ const getReverseNextMoves = (
   currentPositions: Position[],
   heightMap: number[][],
   stepMap: boolean[][],
-  iteration: number
+  iteration: number,
 ): number => {
   let positionSet = currentPositions.flatMap((postion) =>
     getPossibleReverseMoves(postion, heightMap, stepMap)
   );
-  printStepMap(stepMap, heightMap);
+  // printStepMap(stepMap, heightMap);
 
   positionSet = getUniques(positionSet);
   if (positionSet.length === 0) {
-    printStepMap(stepMap, heightMap);
+    // printStepMap(stepMap, heightMap);
     return -1;
   }
   if (positionSet.find((position) => heightMap[position.y][position.x] <= 1)) {
@@ -188,7 +185,7 @@ function positionOutOfBounds(
   x: number,
   y: number,
   heightMap: number[][],
-  stepMap: boolean[][]
+  stepMap: boolean[][],
 ) {
   return (
     x < 0 ||
@@ -209,7 +206,7 @@ function printStepMap(stepMap: boolean[][], heightMap: number[][]) {
           )
           .join("")
       )
-      .join("\n")
+      .join("\n"),
   );
   console.log();
 }

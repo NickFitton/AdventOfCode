@@ -32,7 +32,7 @@ Deno.test("Tuning Trouble - Part 1", async () => {
   const text = await getLocalProblemText(2022, 6);
   const part2Solution = part1(text);
 
-  assertEquals(part2Solution, 12);
+  assertEquals(part2Solution, 1531);
 });
 
 Deno.test("Tuning Trouble - Part 2 iteration 1", () => {
@@ -64,5 +64,5 @@ Deno.test("Tuning Trouble - Part 2", async () => {
   const text = await getLocalProblemText(2022, 6);
   const part2Solution = part2(text);
 
-  assertEquals(part2Solution, 15);
+  assertEquals(part2Solution, 2518);
 });

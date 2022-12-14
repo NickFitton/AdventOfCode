@@ -7,12 +7,12 @@ Deno.test("Monkey in the Middle - Part 1", async () => {
   const text = await getLocalProblemText(2022, 11);
   const part1Solution = part1(text);
 
-  assertEquals(part1Solution, 10605);
+  assertEquals(part1Solution, 95472);
 });
 
 Deno.test("Monkey in the Middle - Part 2", async () => {
   const text = await getLocalProblemText(2022, 11);
   const part2Solution = part2(text);
 
-  assertEquals(part2Solution, 2713310158);
+  assertEquals(part2Solution, 17926061332);
 });

@@ -1,3 +1,6 @@
+import { sum } from "../../utils/reducer.ts";
+import { increasing } from "../../utils/sort.ts";
+
 class Directory {
   public subDirectories: Record<string, Directory>;
   private files: Record<string, number>;
@@ -23,7 +26,7 @@ class Directory {
   }
 
   public getOrCreateDir(name: string): Directory {
-    let requestedDir = this.getDir(name);
+    const requestedDir = this.getDir(name);
 
     if (!requestedDir) {
       this.addDir(name);
@@ -50,7 +53,7 @@ const composeDirectoriesFromText = (text: string): Directory => {
  */
 const parseDirUntilLeave = (
   logs: string[],
-  currentDir: Directory,
+  currentDir: Directory
 ): Directory => {
   let currentLog = logs.shift();
   while (logs.length > 0 || currentLog !== undefined) {
@@ -82,7 +85,7 @@ const parseDirUntilLeave = (
 const getDirSizeAndRecordChildren = (
   directory: Directory,
   currentPath: string,
-  sizeMap: Record<string, number>,
+  sizeMap: Record<string, number>
 ): number => {
   let size = 0;
 
@@ -116,9 +119,9 @@ const sumOfSmallerDirectories = (text: string): number => {
     .filter(([_name, size]) => size <= MAX_DIR_SIZE)
     .reduce(
       (agg, [name, size]) => ({ ...agg, [name]: size }),
-      {} as Record<string, number>,
+      {} as Record<string, number>
     );
-  return Object.values(undersizedDirs).reduce((a, b) => a + b);
+  return Object.values(undersizedDirs).reduce(sum);
 };
 
 export const part1 = sumOfSmallerDirectories;
@@ -131,7 +134,7 @@ const getSizeOfSmallestDeletableDir = (text: string): number => {
   const maxSizeOfFile = REQUIRED_SPACE - freeDiskSpace;
 
   const sizes = Object.values(dirSizes);
-  sizes.sort((a, b) => a - b);
+  sizes.sort(increasing);
   return sizes.find((size) => size > maxSizeOfFile)!;
 };
 
