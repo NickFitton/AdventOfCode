@@ -35,6 +35,7 @@ func y2024_02(lines []string) int64 {
 func isMaxExceeded(line string) bool {
 	scenario := strings.Split(line, ": ")[1]
 	count := []rune{}
+
 	for _, r := range scenario {
 		if r >= 48 && r <= 57 {
 			count = append(count, r)
@@ -44,41 +45,34 @@ func isMaxExceeded(line string) bool {
 			continue
 		}
 		
+		max := int64(0)
 		// Interestingly, this is about 25% faster than using a map of run to int64
-		if r == 'r' {
-			number, err := strconv.ParseInt(string(count), 10, 8)
-			failOutIfErr(err)
-			if number > maxRed {
-				return true
-			}
-			count = []rune{}
-		} else if r == 'g' {
-			number, err := strconv.ParseInt(string(count), 10, 8)
-			failOutIfErr(err)
-			if number > maxGreen {
-				return true
-			}
-			count = []rune{}
-		} else if r == 'b' {
-			number, err := strconv.ParseInt(string(count), 10, 8)
-			failOutIfErr(err)
-			if number > maxBlue {
-				return true
-			}
-			count = []rune{}
+		switch r {
+		case 'r':
+			max = maxRed
+		case 'g':
+			max = maxGreen
+		case 'b':
+			max = maxBlue
+		default:
+			continue
 		}
+		number, err := strconv.ParseInt(string(count), 10, 8)
+		failOutIfErr(err)
+		if number > max {
+			return true
+		}
+		count = []rune{}
 	}
 	return false
 
 }
 
 func y2024_02_2(lines []string) int64 {
-
 	sum := int64(0)
 
 	for _, line := range lines {
 		red, green, blue := parseMaxInGame(line)
-
 		sum = sum + (red * green * blue)
 	}
 

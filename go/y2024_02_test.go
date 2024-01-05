@@ -22,11 +22,7 @@ func Test_2024_2(t *testing.T) {
 	}
 }
 
-// 5050 ns/op ---
-// 3195 ns/op ---
-// 2845 ns/op ---
-// 1624 ns/op ---
-// 1578 ns/op
+// 1527 ns/op
 func Benchmark_2024_02_1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		y2024_02(lines)
