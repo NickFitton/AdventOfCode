@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func main() {
-	number := int64(-1)
-	number, err := strconv.ParseInt("1", 10, 8)
-	failOutIfErr(err)
-	fmt.Println(number)
+	runeMaxMap := map[rune]int64 {
+		'r': 12,
+		'g': 13,
+		'b': 14,
+	}
+	target := 'r'
+	fmt.Println(runeMaxMap['r'])
+	fmt.Println(runeMaxMap[target])
 	// lines, err := readFileLines("input.txt")
 	// if err != nil {
 	// 	log.Fatal(err)

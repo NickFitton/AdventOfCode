@@ -23,29 +23,13 @@ func Test_2024_2(t *testing.T) {
 }
 
 // 5050 ns/op ---
-// 3195 ns/op
-func Benchmark_2024_02_1(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		y2024_02(lines)
-	}
-}
-
-func Test_2024_2_faster(t *testing.T) {
-	answer := int64(8)
-	result := y24_2_1faster(lines)
-
-	if result != answer {
-		t.Errorf("Expected " + strconv.FormatInt(answer, 10) + " but recieved " + strconv.FormatInt(result, 10) + ".")
-	}
-}
-
 // 3195 ns/op ---
 // 2845 ns/op ---
 // 1624 ns/op ---
-// 1594 ns/op
-func Benchmark_2024_02_faster(b *testing.B) {
+// 1578 ns/op
+func Benchmark_2024_02_1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		y24_2_1faster(lines)
+		y2024_02(lines)
 	}
 }
 

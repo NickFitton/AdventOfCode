@@ -1,8 +1,6 @@
 package main
 
 import (
-	"errors"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -18,23 +16,6 @@ var maxGreen = int64(13)
 var maxBlue = int64(14)
 
 func y2024_02(lines []string) int64 {
-	sum := int64(0)
-
-	for _, line := range lines {
-		gameNum, err := strconv.ParseInt(strings.Split(line, ":")[0][5:], 10, 8)
-		failOutIfErr(err)
-
-		red, green, blue := parseMaxInGame(line)
-
-		if red <= maxRed && blue <= maxBlue && green <= maxGreen {
-			sum = sum + gameNum
-		}
-	}
-
-	return sum
-}
-
-func y24_2_1faster(lines []string) int64 {
 	sum := int64(0)
 
 	for _, line := range lines {
@@ -62,24 +43,23 @@ func isMaxExceeded(line string) bool {
 		if len(count) == 0 {
 			continue
 		}
-		// If rune is a unicode number
-		// Rune is "r"
-		if r == 114 {
+		
+		// Interestingly, this is about 25% faster than using a map of run to int64
+		if r == 'r' {
 			number, err := strconv.ParseInt(string(count), 10, 8)
 			failOutIfErr(err)
 			if number > maxRed {
 				return true
 			}
 			count = []rune{}
-			// Rune is "g"
-		} else if r == 103 {
+		} else if r == 'g' {
 			number, err := strconv.ParseInt(string(count), 10, 8)
 			failOutIfErr(err)
 			if number > maxGreen {
 				return true
 			}
 			count = []rune{}
-		} else if r == 98 {
+		} else if r == 'b' {
 			number, err := strconv.ParseInt(string(count), 10, 8)
 			failOutIfErr(err)
 			if number > maxBlue {
@@ -136,16 +116,4 @@ func parseMaxInGame(line string) (int64, int64, int64) {
 
 	return b.red, b.green, b.blue
 
-}
-
-func gameNumber(line string, regex regexp.Regexp) (int64, error) {
-	submatch := regex.FindStringSubmatch(line)
-	if submatch == nil {
-		return -1, errors.New("failed to find a string")
-	}
-	parsedGameNumber, parseErr := strconv.ParseInt(submatch[1], 10, 8)
-	if parseErr != nil {
-		return -1, errors.New("failed to parse given number: " + submatch[1])
-	}
-	return parsedGameNumber, nil
 }
