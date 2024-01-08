@@ -22,18 +22,18 @@ var questionTwoLines = []string{
 	"7pqrstsixteen",
 }
 
-func Test_2024_01(t *testing.T) {
+func Test_2024_01_1(t *testing.T) {
 	answer := int64(142)
-	result := int64(y2024_01(questionOneLines))
+	result := int64(y2024_01_1(questionOneLines))
 
 	if result != answer {
 		t.Errorf("Expected " + strconv.FormatInt(answer, 10) + " but recieved " + strconv.FormatInt(result, 10) + ".")
 	}
 }
 
-func Benchmark_2024_01(b *testing.B) {
+func Benchmark_2024_01_1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		y2024_01(questionOneLines)
+		y2024_01_1(questionOneLines)
 	}
 }
 

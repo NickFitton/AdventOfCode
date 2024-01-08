@@ -13,9 +13,9 @@ var lines = []string{
 	"Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
 }
 
-func Test_2024_2(t *testing.T) {
+func Test_2024_02_1(t *testing.T) {
 	answer := int64(8)
-	result := y2024_02(lines)
+	result := y2024_02_1(lines)
 
 	if result != answer {
 		t.Errorf("Expected " + strconv.FormatInt(answer, 10) + " but recieved " + strconv.FormatInt(result, 10) + ".")
@@ -25,7 +25,7 @@ func Test_2024_2(t *testing.T) {
 // 1527 ns/op
 func Benchmark_2024_02_1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		y2024_02(lines)
+		y2024_02_1(lines)
 	}
 }
 

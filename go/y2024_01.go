@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func y2024_01(lines []string) int {
+func y2024_01_1(lines []string) int {
 	sum := 0
 	for _, line := range lines {
 		first := '0'
@@ -23,6 +23,7 @@ func y2024_01(lines []string) int {
 	return sum
 }
 
+// Recieve first and last as pointers and reassign the values
 func assignRunes(first rune, new rune) (rune, rune) {
 	if first == '0' {
 		return new, new

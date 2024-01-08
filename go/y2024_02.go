@@ -15,7 +15,7 @@ var maxRed = int64(12)
 var maxGreen = int64(13)
 var maxBlue = int64(14)
 
-func y2024_02(lines []string) int64 {
+func y2024_02_1(lines []string) int64 {
 	sum := int64(0)
 
 	for _, line := range lines {
@@ -44,7 +44,7 @@ func isMaxExceeded(line string) bool {
 		if len(count) == 0 {
 			continue
 		}
-		
+
 		max := int64(0)
 		// Interestingly, this is about 25% faster than using a map of run to int64
 		switch r {
