@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	content, err := readFileLines("input.txt")
+	content, err := readFile("input.txt")
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
