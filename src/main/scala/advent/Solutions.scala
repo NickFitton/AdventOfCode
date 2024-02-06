@@ -107,4 +107,74 @@ object Solutions {
       .filter(Question4.passportIsMoreValid)
       .length
   }
+
+  def question5a(input: String): Int = {
+    input
+      .split("\n")
+      .map(boardingPass => {
+        val row = Integer.parseInt(
+          boardingPass
+            .slice(0, 7)
+            .replaceAll("F", "0")
+            .replaceAll("B", "1"),
+          2
+        )
+        val col = Integer.parseInt(
+          boardingPass
+            .slice(7, 11)
+            .replaceAll("L", "0")
+            .replaceAll("R", "1"),
+          2
+        )
+        (row * 8) + col
+      })
+      .reduce((a, b) => { if (a > b) a else b })
+  }
+
+  def question5b(input: String): Int = {
+    val seats: Array[Array[Boolean]] = Array.ofDim[Boolean](128, 8)
+
+    input
+      .split("\n")
+      .map(boardingPass => {
+        val row = Integer.parseInt(
+          boardingPass
+            .slice(0, 7)
+            .replaceAll("F", "0")
+            .replaceAll("B", "1"),
+          2
+        )
+        val col = Integer.parseInt(
+          boardingPass
+            .slice(7, 11)
+            .replaceAll("L", "0")
+            .replaceAll("R", "1"),
+          2
+        )
+
+        Array[Int](row, col)
+      })
+      .foreach((rowCol) => {
+        seats(rowCol(0))(rowCol(1)) = true
+      })
+
+    val row = seats.indexWhere(row => {
+      val population = row.filter((seat) => seat).length
+      population != 8 && population != 0
+    })
+    val col = seats(row).indexWhere(seat => !seat);
+    (row * 8) + col
+  }
+
+  def question6a(input: String): Int = {
+    input
+      .split("\n\n")
+      .map(group => group.replace("\n", "").split("").toSet.size)
+      .reduce((a, b) => a + b)
+  }
+
+  def question6b(input: String): Int = {
+    val groups = input.split("\n\n")
+    Question6.parseGroups(groups, 0)
+  }
 }
