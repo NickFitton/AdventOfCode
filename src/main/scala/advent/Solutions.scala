@@ -2,6 +2,7 @@ package advent
 
 import scala.annotation.tailrec
 import advent.shapes.PasswordRuleset
+import advent.shapes.BagRule
 
 object Solutions {
   def question1a(input: String): Int = {
@@ -176,5 +177,18 @@ object Solutions {
   def question6b(input: String): Int = {
     val groups = input.split("\n\n")
     Question6.parseGroups(groups, 0)
+  }
+
+  def question7a(input: String): Int = {
+    val rules = input.split("\n").map(line => BagRule(line))
+
+    val innerBags = Array("shiny gold")
+    Question8.countOuterBags(innerBags, rules, 0)
+  }
+
+  def question7b(input: String): Int = {
+    val rules = input.split("\n").map(line => BagRule(line))
+
+    Question8.countBagsIn("shiny gold", rules)
   }
 }
