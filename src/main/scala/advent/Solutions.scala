@@ -134,4 +134,25 @@ object Solutions {
 
     Question7.countBagsIn("shiny gold", rules)
   }
+
+  def question8a(input: String): Int = {
+    val instructions = input.split("\n");
+
+    Question8.processBootCode(instructions)
+  }
+
+  def question8b(input: String): Int = {
+    val instructions = input.split("\n");
+
+    Question8.processPatchedBootCode(instructions).getOrElse(-1)
+  }
+
+  def question9a(input: String): Long = {
+    val packages = input.split("\n").map(pack => pack.toLong)
+    Question9.findFirstNonSum(packages, 5)
+  }
+  def question9b(input: String): Long = {
+    val packages = input.split("\n").map(pack => pack.toLong)
+    Question9.findContiguousSet(packages, 25)
+  }
 }
