@@ -3,7 +3,7 @@ package advent
 import advent.shapes.BagRule
 import scala.annotation.tailrec
 
-object Question8 {
+object Question7 {
   @tailrec
   def countOuterBags(
       innerBags: Array[String],
